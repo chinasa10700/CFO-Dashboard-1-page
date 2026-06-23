@@ -1,0 +1,366 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700;800&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+.db{font-family:'Sarabun',sans-serif;font-size:12px;color:var(--color-text-primary);background:var(--color-background-tertiary);min-height:100vh}
+.hdr{background:linear-gradient(135deg,#1a5c2e,#2d7d46);color:#fff;padding:8px 14px;display:flex;align-items:center;gap:12px}
+.hdr-logo{width:52px;height:52px;flex-shrink:0;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.hdr-t{flex:1}.hdr-t h1{font-size:15px;font-weight:800;line-height:1.3}
+.hdr-t p{font-size:11px;opacity:.85;margin-top:1px}
+.hdr-m{text-align:right;font-size:10px;opacity:.85;line-height:1.8}.hdr-m strong{color:#a8e6b8;font-size:12px}
+.mbar{background:var(--color-background-primary);border-bottom:2px solid #4caf6a;padding:6px 14px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.mbar label{font-weight:700;color:#1a5c2e;font-size:11px}
+.mb{padding:3px 10px;border-radius:20px;border:1.5px solid #c8ddd0;background:var(--color-background-primary);cursor:pointer;font-family:'Sarabun',sans-serif;font-size:11px;font-weight:500;color:var(--color-text-secondary);transition:all .2s}
+.mb:hover{border-color:#2d7d46;color:#1a5c2e;background:#e8f5ec}
+.mb.active{background:#1a5c2e;color:#fff;border-color:#1a5c2e;font-weight:700}
+.mb:disabled{opacity:.4;cursor:not-allowed}
+.abadge{margin-left:auto;background:#c0392b;color:#fff;border-radius:12px;padding:2px 10px;font-size:10px;font-weight:700}
+.dash{padding:10px 12px;display:grid;gap:8px}
+.kpi-sec{background:var(--color-background-primary);border-radius:10px;padding:9px 12px;border:.5px solid var(--color-border-tertiary);box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.kpi-sec-t{font-size:10px;font-weight:700;color:#1a5c2e;text-transform:uppercase;letter-spacing:.5px;margin-bottom:7px;display:flex;align-items:center;gap:5px}
+.kpi-sec-t::before{content:'';width:3px;height:12px;background:#2d7d46;border-radius:2px;display:inline-block}
+.kpi-row{display:flex;gap:6px;flex-wrap:wrap}
+.kc{flex:1;min-width:95px;background:#e8f5ec;border:1.5px solid #c8ddd0;border-radius:8px;padding:7px 8px;text-align:center}
+.kc.hi{background:#fdf0ee;border:2px solid #c0392b;box-shadow:0 0 0 2px rgba(192,57,43,.12)}
+.kc .kl{font-size:9px;color:var(--color-text-secondary);font-weight:500;line-height:1.3;margin-bottom:1px}
+.kc .kv{font-size:14px;font-weight:800;color:#1a5c2e}
+.kc.hi .kv{color:#c0392b}.kc .ku{font-size:8px;color:var(--color-text-secondary)}
+.kc.neg .kv{color:#c0392b}.kc.pos .kv{color:#2d7d46}
+.rrow{display:flex;gap:5px;margin-top:5px;flex-wrap:wrap}
+.rpill{flex:1;min-width:75px;background:#eaf0f6;border:1px solid #b8cfe0;border-radius:20px;padding:4px 8px;text-align:center}
+.rpill .rl{font-size:9px;color:#1a5276;font-weight:600}.rpill .rv{font-size:13px;font-weight:800;color:#1a5276}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.cc{background:var(--color-background-primary);border-radius:10px;padding:9px 11px;border:.5px solid var(--color-border-tertiary);box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.cc h3{font-size:10px;font-weight:700;color:#1a5c2e;margin-bottom:6px;display:flex;align-items:center;gap:5px}
+.cc h3::before{content:'';width:3px;height:11px;background:#2d7d46;border-radius:2px;display:inline-block}
+.cw{position:relative;height:165px}.cws{height:75px;margin-top:5px}
+.fw{grid-column:1/-1}
+.wbox{background:linear-gradient(135deg,#fff3cd,#ffeaa0);border:2px solid #d4a017;border-left:5px solid #d4a017;border-radius:8px;padding:9px 12px}
+.wbox h3{font-size:11px;font-weight:800;color:#7d5a00;margin-bottom:5px}
+.wi-row{display:flex;gap:6px;flex-wrap:wrap}
+.wi{flex:1;min-width:180px;background:var(--color-background-primary);border-radius:6px;padding:6px 9px;border-left:3px solid #c0392b}
+.wi .wt{font-size:10px;font-weight:700;color:#c0392b}.wi .wx{font-size:10px;color:var(--color-text-primary);line-height:1.5;margin-top:1px}
+.pft{width:100%;border-collapse:collapse;font-size:10px}
+.pft th{background:#1a5c2e;color:#fff;padding:4px 6px;text-align:center;font-weight:700;font-size:9px}
+.pft td{padding:3px 6px;border-bottom:.5px solid #c8ddd0}
+.pft tr:nth-child(even) td{background:#e8f5ec}
+.pft .rh{font-weight:700;color:#1a5c2e}
+.num{text-align:right;font-variant-numeric:tabular-nums}
+.ov{color:#2d7d46;font-weight:700}.un{color:#c0392b;font-weight:700}
+.tps-sec{background:var(--color-background-primary);border-radius:10px;padding:9px 12px;border:.5px solid var(--color-border-tertiary);box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.tps-sec h3{font-size:10px;font-weight:700;color:#1a5c2e;margin-bottom:8px;display:flex;align-items:center;gap:5px}
+.tps-sec h3::before{content:'';width:3px;height:11px;background:#2d7d46;border-radius:2px;display:inline-block}
+.tps-top{display:flex;gap:8px;align-items:stretch;margin-bottom:8px;flex-wrap:wrap}
+.tps-badge{text-align:center;min-width:110px;background:linear-gradient(135deg,#1a5c2e,#2d7d46);color:#fff;border-radius:10px;padding:9px 14px;display:flex;flex-direction:column;justify-content:center}
+.tps-badge .tbp{font-size:9px;opacity:.85}.tps-badge .tbs{font-size:32px;font-weight:800;line-height:1.1}
+.tps-badge .tbt{font-size:10px;opacity:.8}.tps-badge .tbg{font-size:13px;font-weight:700;margin-top:3px;background:rgba(255,255,255,.2);border-radius:20px;padding:2px 10px}
+.tps-hist{flex:1;display:flex;gap:5px;align-items:center;flex-wrap:wrap}
+.thi{text-align:center;flex:1;min-width:52px;border:1.5px solid #c8ddd0;border-radius:8px;padding:5px 3px}
+.thi .thp{font-size:8px;color:var(--color-text-secondary);font-weight:600}
+.thi .ths{font-size:16px;font-weight:800}.thi .thg{font-size:9px;font-weight:700;border-radius:20px;padding:1px 6px;margin-top:1px;display:inline-block}
+.gA{color:#1a5c2e;background:#d4edda}.gC{color:#721c24;background:#f8d7da}.gD{color:#721c24;background:#f8d7da}
+.tdt{width:100%;border-collapse:collapse;font-size:10px}
+.tdt th{background:#1a5c2e;color:#fff;padding:4px 7px;font-weight:700;font-size:9px;text-align:center}
+.tdt th:first-child{text-align:left}
+.tdt td{padding:3px 7px;border-bottom:.5px solid #c8ddd0}
+.tdt tr.gh td{background:#d4edda;font-weight:700;color:#1a5c2e;font-size:10px}
+.tdt tr.sr td:first-child{padding-left:16px;color:var(--color-text-secondary)}
+.tdt tr.sr2 td:first-child{padding-left:26px;color:var(--color-text-secondary);font-size:9px}
+.sc{text-align:center;font-weight:700}.got{color:#2d7d46}.notgot{color:#c0392b}.full{color:#1a5276}
+.tcw{height:145px;margin-top:6px}
+@media(max-width:600px){.g2{grid-template-columns:1fr}.tps-top{flex-direction:column}}
+</style>
+
+<div class="db">
+<div class="hdr">
+  <div class="hdr-logo">
+    <svg viewBox="0 0 100 100" width="44" height="44">
+      <circle cx="50" cy="50" r="48" fill="#1a5c2e" stroke="#fff" stroke-width="2"/>
+      <circle cx="50" cy="50" r="36" fill="none" stroke="#fff" stroke-width="1.5"/>
+      <text x="50" y="30" text-anchor="middle" fill="white" font-size="8" font-family="sans-serif" font-weight="bold">กระทรวง</text>
+      <text x="50" y="40" text-anchor="middle" fill="white" font-size="8" font-family="sans-serif" font-weight="bold">สาธารณสุข</text>
+      <line x1="50" y1="44" x2="50" y2="76" stroke="white" stroke-width="2"/>
+      <path d="M44 52 Q50 47 56 52 Q50 57 44 52" fill="none" stroke="white" stroke-width="1.5"/>
+      <path d="M44 59 Q50 54 56 59 Q50 64 44 59" fill="none" stroke="white" stroke-width="1.5"/>
+      <path d="M44 66 Q50 61 56 66 Q50 71 44 66" fill="none" stroke="white" stroke-width="1.5"/>
+      <polygon points="50,37 46,44 54,44" fill="white"/>
+      <text x="50" y="92" text-anchor="middle" fill="white" font-size="6" font-family="sans-serif">MOPH THAILAND</text>
+    </svg>
+  </div>
+  <div class="hdr-t">
+    <h1>รายงานสถานการณ์เงินบำรุง โรงพยาบาลศรีสะเกษ</h1>
+    <p>ปีงบประมาณ 2569 | ข้อมูล ณ วันที่ 31 พฤษภาคม 2569</p>
+  </div>
+  <div class="hdr-m">
+    <div>ผู้รายงาน: <strong>กลุ่มงานบัญชี</strong></div>
+    <div>คณะกรรมการบริหารการเงินการคลัง</div>
+    <div>โรงพยาบาลศรีสะเกษ | CFO TEAM</div>
+  </div>
+</div>
+
+<div class="mbar">
+  <label>เลือกเดือน:</label>
+  <button class="mb" onclick="sel(0)">ต.ค.68</button>
+  <button class="mb" onclick="sel(1)">พ.ย.68</button>
+  <button class="mb" onclick="sel(2)">ธ.ค.68</button>
+  <button class="mb" onclick="sel(3)">ม.ค.69</button>
+  <button class="mb" onclick="sel(4)">ก.พ.69</button>
+  <button class="mb" onclick="sel(5)">มี.ค.69</button>
+  <button class="mb" onclick="sel(6)">เม.ย.69</button>
+  <button class="mb active" onclick="sel(7)">พ.ค.69</button>
+  <button class="mb" disabled>มิ.ย.69</button>
+  <button class="mb" disabled>ก.ค.69</button>
+  <button class="mb" disabled>ส.ค.69</button>
+  <button class="mb" disabled>ก.ย.69</button>
+  <span class="abadge">เหลือ 4 เดือน</span>
+</div>
+
+<div class="dash">
+  <div class="kpi-sec fw">
+    <div class="kpi-sec-t">ภาพรวมการเงิน เดือน <span id="mlb" style="color:#4caf6a;margin-left:3px">พ.ค.2569</span></div>
+    <div class="kpi-row">
+      <div class="kc"><div class="kl">เงินบำรุงคงเหลือ</div><div class="kv" id="kb">225.69</div><div class="ku">ล้านบาท</div></div>
+      <div class="kc pos"><div class="kl">รายรับรวม</div><div class="kv" id="ki">136.30</div><div class="ku">ล้านบาท</div></div>
+      <div class="kc"><div class="kl">รายจ่ายรวม</div><div class="kv" id="ke">157.61</div><div class="ku">ล้านบาท</div></div>
+      <div class="kc neg" id="knc"><div class="kl">รับ - จ่าย</div><div class="kv" id="kn">-21.31</div><div class="ku">ล้านบาท</div></div>
+      <div class="kc"><div class="kl">หนี้สินคงค้างรวม</div><div class="kv" style="color:#c0392b" id="kd">507.60</div><div class="ku">ล้านบาท</div></div>
+      <div class="kc hi"><div class="kl">เงินบำรุงหลังหักหนี้</div><div class="kv" id="knb">-70.94</div><div class="ku">ล้านบาท</div></div>
+      <div class="kc"><div class="kl">I/E Ratio</div><div class="kv" id="kie">0.865</div><div class="ku">เดือนนี้</div></div>
+    </div>
+    <div class="rrow">
+      <div class="rpill"><div class="rl">CR Ratio</div><div class="rv" id="rcr">3.44</div></div>
+      <div class="rpill"><div class="rl">QR Ratio</div><div class="rv" id="rqr">3.14</div></div>
+      <div class="rpill"><div class="rl">Cash Ratio</div><div class="rv" id="rca">0.82</div></div>
+      <div class="rpill" style="min-width:100px"><div class="rl">NWC (ล้านบาท)</div><div class="rv" id="rnw">928.19</div></div>
+      <div class="rpill" style="min-width:110px"><div class="rl">NI สะสม (ล้านบาท)</div><div class="rv" id="rni">305.93</div></div>
+    </div>
+    <div style="margin-top:6px">
+      <div style="font-size:9px;color:var(--color-text-secondary);font-weight:600;margin-bottom:2px">แนวโน้มเงินบำรุงหลังหักหนี้สิน ตั้งแต่ต้นปี (ล้านบาท)</div>
+      <div class="cws"><canvas id="sparkC"></canvas></div>
+    </div>
+  </div>
+
+  <div class="g2">
+    <div class="cc"><h3>4.2 รายรับ vs รายจ่าย รายเดือน (ล้านบาท)</h3><div class="cw"><canvas id="ieC"></canvas></div></div>
+    <div class="cc"><h3>4.3 สัดส่วนรายรับกองทุนต่างๆ (%)</h3><div class="cw"><canvas id="fundC"></canvas></div></div>
+  </div>
+
+  <div class="g2">
+    <div class="cc"><h3>4.4 รายจ่ายแยกหมวด รายเดือน (ล้านบาท)</h3><div class="cw"><canvas id="expC"></canvas></div></div>
+    <div class="cc"><h3>4.4 ค่าวัสดุแยกประเภท + เส้นแนวโน้ม (ล้านบาท)</h3><div class="cw"><canvas id="matC"></canvas></div></div>
+  </div>
+
+  <div class="g2">
+    <div class="cc"><h3>4.5 หนี้สิน vs เงินบำรุงคงเหลือ (ล้านบาท)</h3><div class="cw"><canvas id="dbC"></canvas></div></div>
+    <div class="cc"><h3>4.6 สัดส่วนหนี้สินแยกประเภท (ล้านบาท)</h3><div class="cw"><canvas id="dsC"></canvas></div></div>
+  </div>
+
+  <div class="cc fw">
+    <h3>4.7 Planfin สะสม เทียบผลจริง (ล้านบาท)</h3>
+    <div style="overflow-x:auto"><table class="pft" id="pft"><thead><tr id="pfth"><th>รายการ</th></tr></thead><tbody id="pfb"></tbody></table></div>
+  </div>
+
+  <div class="tps-sec fw">
+    <h3>4.71 ผลประเมินประสิทธิภาพการเงินการคลัง (TPS Score) – ล่าสุด ไตรมาส 2/2569</h3>
+    <div class="tps-top">
+      <div class="tps-badge">
+        <div class="tbp">2569 ไตรมาส 2</div>
+        <div class="tbs">13.5</div>
+        <div class="tbt">จาก 15 คะแนน</div>
+        <div class="tbg">ระดับ A</div>
+      </div>
+      <div class="tps-hist">
+        <div class="thi"><div class="thp">2564Q4</div><div class="ths" style="color:#c0392b">8.5</div><div class="thg gD">D</div></div>
+        <div class="thi"><div class="thp">2565Q4</div><div class="ths" style="color:#1a5c2e">12</div><div class="thg gA">A</div></div>
+        <div class="thi"><div class="thp">2566Q4</div><div class="ths" style="color:#856404">9.5</div><div class="thg gC">C</div></div>
+        <div class="thi"><div class="thp">2567Q4</div><div class="ths" style="color:#1a5c2e">14</div><div class="thg gA">A</div></div>
+        <div class="thi"><div class="thp">2568Q4</div><div class="ths" style="color:#1a5c2e">13.5</div><div class="thg gA">A</div></div>
+        <div class="thi"><div class="thp">2569Q1</div><div class="ths" style="color:#1a5c2e">12.5</div><div class="thg gA">A</div></div>
+        <div class="thi" style="border-color:#2d7d46;background:#e8f5ec"><div class="thp">2569Q2</div><div class="ths" style="color:#1a5c2e">13.5</div><div class="thg gA">A</div></div>
+      </div>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="tdt">
+        <thead><tr>
+          <th style="min-width:280px;text-align:left">รายการตัวชี้วัด</th>
+          <th>เต็ม</th><th>2564Q4</th><th>2565Q4</th><th>2566Q4</th><th>2567Q4</th><th>2568Q4</th><th>2569Q1</th><th>2569Q2</th>
+        </tr></thead>
+        <tbody>
+          <tr class="gh"><td colspan="9">1. ตัวชี้วัดกระบวนการ (Process Indicators)</td></tr>
+          <tr class="sr"><td>1.1 Planfin ผลต่าง ±5%</td><td class="sc full">2</td><td class="sc notgot">0</td><td class="sc got">1</td><td class="sc got">1</td><td class="sc got">2</td><td class="sc got">1</td><td class="sc got">2</td><td class="sc got">2</td></tr>
+          <tr class="sr2"><td>1.1.1 มิติรายได้</td><td class="sc full">1</td><td class="sc notgot">0</td><td class="sc got">1</td><td class="sc notgot">0</td><td class="sc got">1</td><td class="sc notgot">0</td><td class="sc got">1</td><td class="sc got">1</td></tr>
+          <tr class="sr2"><td>1.1.2 มิติค่าใช้จ่าย</td><td class="sc full">1</td><td class="sc notgot">0</td><td class="sc notgot">0</td><td class="sc got">1</td><td class="sc got">1</td><td class="sc got">1</td><td class="sc got">1</td><td class="sc got">1</td></tr>
+          <tr class="sr"><td>1.2 บริหารสินทรัพย์/หนี้สินหมุนเวียน</td><td class="sc full">3</td><td class="sc got">1.5</td><td class="sc got">2</td><td class="sc got">1.5</td><td class="sc got">3</td><td class="sc got">2.5</td><td class="sc got">2.5</td><td class="sc got">2.5</td></tr>
+          <tr class="sr2"><td>1.2.1 ชำระเจ้าหนี้ยา+เวชภัณฑ์ ≤90/180 วัน</td><td class="sc full">1</td><td class="sc notgot">0</td><td class="sc notgot">0</td><td class="sc notgot">0</td><td class="sc got">1</td><td class="sc got">1</td><td class="sc got">1</td><td class="sc got">1</td></tr>
+          <tr class="sr2"><td>1.2.2 เรียกเก็บหนี้ UC ≤60 วัน</td><td class="sc full">0.5</td><td class="sc got">0.5</td><td class="sc got">0.5</td><td class="sc notgot">0</td><td class="sc got">0.5</td><td class="sc notgot">0</td><td class="sc notgot">0</td><td class="sc notgot">0</td></tr>
+          <tr class="sr2"><td>1.2.3 เรียกเก็บหนี้ข้าราชการ ≤60 วัน</td><td class="sc full">0.5</td><td class="sc notgot">0</td><td class="sc got">0.5</td><td class="sc got">0.5</td><td class="sc got">0.5</td><td class="sc got">0.5</td><td class="sc got">0.5</td><td class="sc got">0.5</td></tr>
+          <tr class="sr2"><td>1.2.4 Inventory Management ≤60 วัน</td><td class="sc full">1</td><td class="sc got">1</td><td class="sc got">1</td><td class="sc got">1</td><td class="sc got">1</td><td class="sc got">1</td><td class="sc got">1</td><td class="sc got">1</td></tr>
+          <tr class="sr"><td>1.3 การบริหารจัดการ</td><td class="sc full">5</td><td class="sc got">4</td><td class="sc got">4</td><td class="sc got">5</td><td class="sc got">5</td><td class="sc got">5</td><td class="sc got">5</td><td class="sc got">4</td></tr>
+          <tr class="sr2"><td>1.3.1 บริหารต้นทุน (Unit Cost OP/IP, LC, MC)</td><td class="sc full">2</td><td class="sc got">2</td><td class="sc got">2</td><td class="sc got">2</td><td class="sc got">2</td><td class="sc got">2</td><td class="sc got">2</td><td class="sc got">2</td></tr>
+          <tr class="sr2"><td>1.3.2 ตรวจสอบงบทดลองเบื้องต้น</td><td class="sc full">1</td><td class="sc got">1</td><td class="sc got">1</td><td class="sc got">1</td><td class="sc got">1</td><td class="sc got">1</td><td class="sc got">1</td><td class="sc got">1</td></tr>
+          <tr class="sr2"><td>1.3.3 Productivity (อัตราครองเตียง + AdjRW)</td><td class="sc full">2</td><td class="sc got">1</td><td class="sc got">1</td><td class="sc got">2</td><td class="sc got">2</td><td class="sc got">2</td><td class="sc got">2</td><td class="sc got">1</td></tr>
+          <tr class="gh"><td colspan="9">2. ตัวชี้วัดผลลัพธ์การดำเนินงาน</td></tr>
+          <tr class="sr"><td>2.1 ความสามารถในการทำกำไร</td><td class="sc full">3</td><td class="sc got">1</td><td class="sc got">3</td><td class="sc notgot">0</td><td class="sc got">2</td><td class="sc got">3</td><td class="sc got">3</td><td class="sc got">3</td></tr>
+          <tr class="sr2"><td>2.1.1 Operating Margin</td><td class="sc full">1</td><td class="sc notgot">0</td><td class="sc got">1</td><td class="sc notgot">0</td><td class="sc got">1</td><td class="sc got">1</td><td class="sc got">1</td><td class="sc got">1</td></tr>
+          <tr class="sr2"><td>2.1.2 Return on Asset</td><td class="sc full">1</td><td class="sc notgot">0</td><td class="sc got">1</td><td class="sc notgot">0</td><td class="sc notgot">0</td><td class="sc got">1</td><td class="sc got">1</td><td class="sc got">1</td></tr>
+          <tr class="sr2"><td>2.1.3 EBITDA ≥ 0</td><td class="sc full">1</td><td class="sc got">1</td><td class="sc got">1</td><td class="sc notgot">0</td><td class="sc got">1</td><td class="sc got">1</td><td class="sc got">1</td><td class="sc got">1</td></tr>
+          <tr class="sr"><td>2.2 สภาพคล่องทางการเงิน</td><td class="sc full">2</td><td class="sc got">2</td><td class="sc got">2</td><td class="sc got">2</td><td class="sc got">2</td><td class="sc got">2</td><td class="sc got">2</td><td class="sc got">2</td></tr>
+          <tr class="sr2"><td>2.2.1 NWC ≥ 0</td><td class="sc full">1</td><td class="sc got">1</td><td class="sc got">1</td><td class="sc got">1</td><td class="sc got">1</td><td class="sc got">1</td><td class="sc got">1</td><td class="sc got">1</td></tr>
+          <tr class="sr2"><td>2.2.2 Cash Ratio ≥ 0.8</td><td class="sc full">1</td><td class="sc got">1</td><td class="sc got">1</td><td class="sc got">1</td><td class="sc got">1</td><td class="sc got">1</td><td class="sc got">1</td><td class="sc got">1</td></tr>
+          <tr style="background:#1a5c2e;color:#fff">
+            <td style="font-weight:800;padding:5px 7px">รวมคะแนน TPS</td>
+            <td class="sc" style="font-weight:800">15</td><td class="sc" style="font-weight:800">8.5</td><td class="sc" style="font-weight:800">12</td><td class="sc" style="font-weight:800">9.5</td><td class="sc" style="font-weight:800">14</td><td class="sc" style="font-weight:800">13.5</td><td class="sc" style="font-weight:800">12.5</td><td class="sc" style="font-weight:800;color:#a8e6b8">13.5</td>
+          </tr>
+          <tr style="background:#e8f5ec">
+            <td style="font-weight:700;padding:4px 7px">ระดับการประเมิน</td>
+            <td class="sc">–</td>
+            <td class="sc"><span class="thg gD">D</span></td><td class="sc"><span class="thg gA">A</span></td><td class="sc"><span class="thg gC">C</span></td><td class="sc"><span class="thg gA">A</span></td><td class="sc"><span class="thg gA">A</span></td><td class="sc"><span class="thg gA">A</span></td><td class="sc"><span class="thg gA">A</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tcw"><canvas id="tpsC"></canvas></div>
+  </div>
+
+  <div class="wbox fw">
+    <h3>สรุปข้อเตือนใจ – การใช้จ่ายช่วง 4 เดือนสุดท้าย (มิ.ย.–ก.ย.2569)</h3>
+    <div class="wi-row">
+      <div class="wi"><div class="wt">เงินบำรุงหลังหักหนี้ติดลบ</div><div class="wx">เงินบำรุงคงเหลือ 225.69 ล้าน แต่หนี้สิน 507.60 ล้าน เงินบำรุงหลังหักหนี้ <strong>-70.94 ล้าน</strong> ต้องระมัดระวังการก่อหนี้เพิ่ม</div></div>
+      <div class="wi"><div class="wt">I/E Ratio ต่ำกว่า 1</div><div class="wx">I/E Ratio พ.ค. = <strong>0.865</strong> รายรับต่ำกว่ารายจ่าย ควรเร่งรัดเรียกเก็บรายได้กองทุน UC, ประกันสังคม และบัญชีกลาง</div></div>
+      <div class="wi"><div class="wt">ค่าวัสดุยาสูง</div><div class="wx">ค่ายาสะสม 8 เดือน <strong>~324 ล้าน</strong> ควบคุมการสั่งยา-เวชภัณฑ์ 4 เดือนที่เหลือให้เป็นไปตาม Planfin</div></div>
+      <div class="wi"><div class="wt">รายจ่ายสะสมเกินแผน</div><div class="wx">รายจ่ายสะสม 8 เดือน <strong>1,787.87 ล้าน</strong> เกินแผน +0.87% ต้องควบคุมรายจ่าย 4 เดือนสุดท้ายไม่ให้เกิน 2,684 ล้านบาท</div></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script>
+const MO=['ต.ค.68','พ.ย.68','ธ.ค.68','ม.ค.69','ก.พ.69','มี.ค.69','เม.ย.69','พ.ค.69'];
+const bal=[318.97,253.52,341.46,289.78,274.65,241.63,249.83,225.69];
+const inc=[202.96,113.43,242.53,124.51,158.43,118.38,143.79,136.30];
+const exp=[139.45,181.06,158.01,175.60,145.44,152.54,135.08,157.61];
+const nie=[63.51,-67.63,84.53,-51.10,12.98,-34.16,8.71,-21.31];
+const dv=[343.46,312.16,306.50,294.03,286.75,292.85,314.59,318.40];
+const dp=[36.01,59.27,60.96,26.99,42.46,62.97,52.99,27.71];
+const dpr=[73.71,213.99,181.50,164.17,193.12,221.16,99.13,161.49];
+const dtot=[453.18,585.42,548.96,485.18,522.33,576.98,466.71,507.60];
+const nb=[-70.22,2.19,-41.15,62.39,22.22,21.69,-19.15,-35.49,-70.94];
+const nbD=[2.19,-41.15,62.39,22.22,21.69,-19.15,-35.49,-70.94];
+const ie=[1.455,0.626,1.535,0.709,1.089,0.776,1.064,0.865];
+const cr=[2.66,3.04,3.17,3.37,3.67,3.60,3.48,3.44];
+const qr=[2.34,2.69,2.84,2.99,3.31,3.27,3.17,3.14];
+const ca=[1.01,0.89,1.17,1.07,1.07,0.95,0.91,0.82];
+const nwc=[663.13,737.61,799.22,817.57,882.60,911.89,928.19,936.38];
+const ni2=[111.36,203.44,179.51,203.89,255.14,299.62,305.93,311.84];
+const fUC=[119.51,20.08,138.94,50.53,66.55,69.21,58.43,48.17];
+const fBK=[61.48,27.04,74.40,50.05,33.80,27.31,58.42,43.07];
+const fSS=[4.95,12.39,1.68,7.50,40.87,3.34,10.77,12.54];
+const fOP=[0.87,36.96,0.36,0.33,0.37,0.32,0.28,8.46];
+const fOT=[12.94,13.08,12.47,12.62,11.27,13.55,12.00,11.99];
+const ew=[17.14,18.49,16.84,16.94,16.98,17.06,17.04,16.78];
+const ec=[33.66,28.54,36.65,35.93,35.95,32.85,36.15,31.72];
+const eu=[11.80,9.98,8.31,5.71,4.89,10.71,7.82,7.24];
+const em=[56.91,89.83,74.33,92.57,66.72,74.48,43.96,74.03];
+const eutl=[4.51,4.53,3.77,3.85,3.29,3.83,4.52,4.96];
+const eeq=[4.61,14.66,7.66,7.69,0.23,2.87,16.80,8.96];
+const el=[5.94,10.08,7.31,10.76,14.59,8.74,7.17,12.01];
+const eo=[4.88,3.95,5.14,2.23,1.73,2.43,2.17,2.12];
+const mD=[32.68,18.66,43.94,36.21,57.41,27.99,42.35,24.02];
+const mM=[7.76,19.19,20.22,18.10,21.42,20.99,17.81,7.43];
+const mN=[7.31,6.65,9.18,9.38,5.20,7.64,5.13,3.98];
+const mS=[1.20,3.93,5.84,4.88,1.50,1.95,2.96,1.62];
+const mF=[0.97,0.59,0.49,0.70,0.58,0.48,0.11,1.15];
+const mB=[2.21,1.01,3.61,0.63,0.66,2.96,1.20,0.48];
+const mO=[4.95,6.89,6.56,4.42,5.80,4.71,4.92,5.26];
+const ip=[222.59,445.18,667.77,890.36,1112.95,1335.54,1558.13,1780.72];
+const ia=[345.80,655.66,848.59,1091.75,1362.94,1631.95,1867.70,2099.71];
+const ep2=[221.56,443.11,664.67,886.23,1107.79,1329.34,1550.90,1772.46];
+const ea=[234.44,452.22,669.08,887.86,1107.80,1332.33,1561.78,1787.87];
+
+let CX={},idx=7;
+const sl=a=>a.slice(0,idx+1),ms=()=>MO.slice(0,idx+1);
+const f2=v=>v.toFixed(2);
+
+function updKPI(){
+  const m=MO[idx];
+  document.getElementById('mlb').textContent=m;
+  document.getElementById('kb').textContent=f2(bal[idx]);
+  document.getElementById('ki').textContent=f2(inc[idx]);
+  document.getElementById('ke').textContent=f2(exp[idx]);
+  const n=nie[idx];
+  document.getElementById('kn').textContent=(n>=0?'+':'')+f2(n);
+  const nc=document.getElementById('knc');
+  nc.className='kc '+(n>=0?'pos':'neg');
+  document.getElementById('kd').textContent=f2(dtot[idx]);
+  const nb2=nbD[idx];
+  document.getElementById('knb').textContent=(nb2>=0?'+':'')+f2(nb2);
+  document.getElementById('kie').textContent=ie[idx].toFixed(3);
+  document.getElementById('rcr').textContent=cr[idx].toFixed(2);
+  document.getElementById('rqr').textContent=qr[idx].toFixed(2);
+  document.getElementById('rca').textContent=ca[idx].toFixed(2);
+  document.getElementById('rnw').textContent=f2(nwc[idx]);
+  document.getElementById('rni').textContent=f2(ni2[idx]);
+}
+
+function mk(id,cfg){if(CX[id])CX[id].destroy();CX[id]=new Chart(document.getElementById(id).getContext('2d'),cfg);}
+const base={responsive:true,maintainAspectRatio:false};
+const tt=(lbl)=>({plugins:{legend:{labels:{font:{size:9,family:'Sarabun'},boxWidth:9}},tooltip:{callbacks:{label:c=>c.dataset.label+': '+(c.raw||0).toFixed(1)+' ล.'}}},scales:{x:{stacked:lbl,grid:{display:false},ticks:{font:{size:9}}},y:{stacked:lbl,grid:{color:'#eee'},ticks:{font:{size:8},callback:v=>v.toFixed(0)}}}});
+
+function bSpark(){
+  const d=sl(nbD),c=d.map(v=>v<0?'#c0392b':'#2d7d46');
+  mk('sparkC',{type:'bar',data:{labels:ms(),datasets:[{data:d,backgroundColor:c,borderRadius:2,barThickness:22}]},options:{...base,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>(c.raw>=0?'+':'')+c.raw.toFixed(2)+' ล.'}}},scales:{x:{grid:{display:false},ticks:{font:{size:8}}},y:{grid:{color:'#e0e0e0'},ticks:{font:{size:7},callback:v=>v.toFixed(0)}}}}});
+}
+function bIE(){
+  mk('ieC',{type:'bar',data:{labels:ms(),datasets:[{label:'รายรับ',data:sl(inc),backgroundColor:'#4caf6a',borderRadius:2},{label:'รายจ่าย',data:sl(exp),backgroundColor:'#e57373',borderRadius:2},{label:'รับ-จ่าย',data:sl(nie),type:'line',borderColor:'#1a5c2e',backgroundColor:'transparent',tension:0.4,pointRadius:3,borderWidth:2}]},options:{...base,...tt(false)}});
+}
+function bFund(){
+  const tot=sl(inc);
+  const p=a=>sl(a).map((v,i)=>tot[i]>0?+(v/tot[i]*100).toFixed(1):0);
+  mk('fundC',{type:'bar',data:{labels:ms(),datasets:[{label:'UC',data:p(fUC),backgroundColor:'#1565c0',stack:'s'},{label:'บัญชีกลาง',data:p(fBK),backgroundColor:'#388e3c',stack:'s'},{label:'ประกันสังคม',data:p(fSS),backgroundColor:'#e65100',stack:'s'},{label:'อปท.',data:p(fOP),backgroundColor:'#6a1b9a',stack:'s'},{label:'อื่นๆ',data:p(fOT),backgroundColor:'#78909c',stack:'s'}]},options:{...base,plugins:{legend:{labels:{font:{size:8,family:'Sarabun'},boxWidth:8}},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.raw.toFixed(1)+'%'}}},scales:{x:{stacked:true,grid:{display:false},ticks:{font:{size:9}}},y:{stacked:true,max:100,ticks:{font:{size:8},callback:v=>v+'%'}}}}});
+}
+function bExp(){
+  mk('expC',{type:'bar',data:{labels:ms(),datasets:[{label:'ค่าตอบแทน+จ้าง',data:sl(ec.map((v,i)=>v+ew[i])),backgroundColor:'#1a5276',stack:'s'},{label:'ค่าวัสดุ',data:sl(em),backgroundColor:'#c0392b',stack:'s'},{label:'LAB-Xray',data:sl(el),backgroundColor:'#8e44ad',stack:'s'},{label:'ค่าครุภัณฑ์',data:sl(eeq),backgroundColor:'#e67e22',stack:'s'},{label:'ค่าใช้สอย',data:sl(eu),backgroundColor:'#16a085',stack:'s'},{label:'อื่นๆ',data:sl(eutl.map((v,i)=>v+eo[i])),backgroundColor:'#95a5a6',stack:'s'}]},options:{...base,...tt(true)}});
+}
+function bMat(){
+  const dr=sl(mD);
+  const n=dr.length,xi=Array.from({length:n},(_,i)=>i);
+  const mx=xi.reduce((a,b)=>a+b,0)/n,my=dr.reduce((a,b)=>a+b,0)/n;
+  const num=xi.reduce((s,x,i)=>s+(x-mx)*(dr[i]-my),0),den=xi.reduce((s,x)=>s+(x-mx)**2,0);
+  const sl2=den?num/den:0,ic=my-sl2*mx;
+  const tr=xi.map(x=>+(sl2*x+ic).toFixed(2));
+  mk('matC',{type:'bar',data:{labels:ms(),datasets:[{label:'ยา',data:dr,backgroundColor:'#c0392b80',borderColor:'#c0392b',borderWidth:1},{label:'วัสดุการแพทย์',data:sl(mM),backgroundColor:'#1565c080',borderColor:'#1565c0',borderWidth:1},{label:'เวชภัณฑ์มิใช่ยา',data:sl(mN),backgroundColor:'#388e3c80',borderColor:'#388e3c',borderWidth:1},{label:'วัสดุวิทย์',data:sl(mS),backgroundColor:'#f39c1280',borderColor:'#f39c12',borderWidth:1},{label:'อื่นๆ',data:sl(mO),backgroundColor:'#95a5a680',borderColor:'#95a5a6',borderWidth:1},{label:'แนวโน้มยา',data:tr,type:'line',borderColor:'#c0392b',backgroundColor:'transparent',pointRadius:0,borderWidth:2,borderDash:[5,3],tension:0}]},options:{...base,...tt(false)}});
+}
+function bDB(){
+  mk('dbC',{type:'bar',data:{labels:ms(),datasets:[{label:'หนี้สินรวม',data:sl(dtot),backgroundColor:'#e74c3c99',borderColor:'#c0392b',borderWidth:1,borderRadius:2},{label:'เงินบำรุง',data:sl(bal),backgroundColor:'#27ae6099',borderColor:'#1a5c2e',borderWidth:1,borderRadius:2},{label:'แนวโน้มหนี้',data:sl(dtot),type:'line',borderColor:'#c0392b',backgroundColor:'transparent',pointRadius:4,pointBackgroundColor:'#c0392b',borderWidth:2,tension:0.4}]},options:{...base,...tt(false)}});
+}
+function bDS(){
+  mk('dsC',{type:'bar',data:{labels:ms(),datasets:[{label:'ตรวจรับรอจ่าย',data:sl(dv),backgroundColor:'#c0392b',stack:'s',borderRadius:2},{label:'PO เพิ่มเดือนนี้',data:sl(dp),backgroundColor:'#e67e22',stack:'s',borderRadius:2},{label:'กำลังดำเนินการ',data:sl(dpr),backgroundColor:'#f1c40f',stack:'s',borderRadius:2}]},options:{...base,...tt(true)}});
+}
+function bPF(){
+  const mos=ms();
+  document.getElementById('pfth').innerHTML='<th>รายการ</th>'+mos.map(m=>`<th>${m}</th>`).join('');
+  let h='';
+  [[' แผนรายได้สะสม (ล.)',ip,ia],['แผนค่าใช้จ่ายสะสม (ล.)',ep2,ea]].forEach(([lbl,pl,ac])=>{
+    h+=`<tr><td class="rh">${lbl}</td>`+mos.map((_,i)=>`<td class="num">${pl[i].toFixed(0)}</td>`).join('')+'</tr>';
+    h+=`<tr><td class="rh" style="padding-left:14px">ผลจริงสะสม</td>`+mos.map((_,i)=>`<td class="num">${ac[i].toFixed(0)}</td>`).join('')+'</tr>';
+    h+=`<tr><td class="rh" style="padding-left:14px">ส่วนต่าง (ล.)</td>`+mos.map((_,i)=>{const d=ac[i]-pl[i];return`<td class="num ${d>=0?'ov':'un'}">${(d>=0?'+':'')+d.toFixed(0)}</td>`;}).join('')+'</tr>';
+    h+=`<tr><td class="rh" style="padding-left:14px">ส่วนต่าง (%)</td>`+mos.map((_,i)=>{const d=ac[i]-pl[i],p=pl[i]>0?d/pl[i]*100:0;return`<td class="num ${p>=0?'ov':'un'}">${(p>=0?'+':'')+p.toFixed(1)}%</td>`;}).join('')+'</tr>';
+  });
+  document.getElementById('pfb').innerHTML=h;
+}
+function bTPS(){
+  mk('tpsC',{type:'bar',data:{labels:['2564Q4','2565Q4','2566Q4','2567Q4','2568Q4','2569Q1','2569Q2'],datasets:[{label:'TPS Score',data:[8.5,12,9.5,14,13.5,12.5,13.5],backgroundColor:[8.5,12,9.5,14,13.5,12.5,13.5].map(s=>s>=12?'#2d7d46':s>=10?'#e67e22':'#c0392b'),borderRadius:4,barThickness:30},{label:'เป้าหมาย (12)',data:Array(7).fill(12),type:'line',borderColor:'#1a5276',borderWidth:2,borderDash:[6,3],pointRadius:0,backgroundColor:'transparent',tension:0}]},options:{...base,plugins:{legend:{labels:{font:{size:9,family:'Sarabun'},boxWidth:10}},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.raw}}},scales:{x:{grid:{display:false},ticks:{font:{size:9,family:'Sarabun',weight:'600'}}},y:{min:0,max:15,grid:{color:'#eee'},ticks:{font:{size:9},stepSize:3},title:{display:true,text:'คะแนน (จาก 15)',font:{size:9,family:'Sarabun'}}}}}});
+}
+
+function updAll(){updKPI();bSpark();bIE();bFund();bExp();bMat();bDB();bDS();bPF();}
+
+function sel(i){
+  idx=i;
+  document.querySelectorAll('.mb').forEach((b,j)=>b.classList.toggle('active',j===i));
+  updAll();
+}
+
+updAll();
+bTPS();
+</script>
